@@ -6,11 +6,13 @@ const app = Vue.createApp({
     data() {
         return {
             playerHealth: 100,
-            monsterHealth: 100
+            monsterHealth: 100,
+            currentRound: 0
         };
     },
     methods: {
         monsterAttack() {
+            this.currentRound++;
             const attackValue = randomValue(5, 12);
             this.monsterHealth -= attackValue;
             this.playerAttack();
@@ -18,6 +20,12 @@ const app = Vue.createApp({
         playerAttack() {
             const attackValue = randomValue(8, 15);
             this.playerHealth -= attackValue; 
+        },
+        specialAttack() {
+            this.currentRound++;
+            const attackValue = randomValue(10, 25);
+            this.monsterHealth -= attackValue;
+            this.playerAttack();
         }
     },
     computed: {
@@ -26,6 +34,9 @@ const app = Vue.createApp({
         },
         playerHealthBar() {
             return { width: this.playerHealth + '%' };
+        },
+        attackSpecial() {
+            return this.currentRound % 3 !== 0;
         }
     }
 });
