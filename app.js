@@ -26,6 +26,16 @@ const app = Vue.createApp({
             const attackValue = randomValue(10, 25);
             this.monsterHealth -= attackValue;
             this.playerAttack();
+        },
+        healPlayer() {
+            this.currentRound++;
+            const healValue = randomValue(8, 15);
+            if (this.healPlayer + healValue > 100) {
+                this.playerHealth = 100;
+            } else {
+                this.playerHealth += healValue;
+            }
+            this.playerAttack();
         }
     },
     computed: {
